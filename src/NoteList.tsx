@@ -17,7 +17,6 @@ import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
 import { Tag } from "./App";
 import styles from "./NoteList.module.css";
-import { Test } from "./Test";
 
 type SimplifiedNote = {
   tags: Tag[];
@@ -53,12 +52,12 @@ export function NoteList({
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
       return (
-        title === "" ||
-        (note.title.toLowerCase().includes(title.toLocaleLowerCase()) &&
+        (title === "" ||
+        note.title.toLowerCase().includes(title.toLowerCase())) &&
           (selectedTags.length === 0 ||
-            selectedTags.every((tag) =>
+            selectedTags.every(tag =>
               note.tags.some((noteTag) => noteTag.id === tag.id)
-            )))
+            ))
       );
     });
   }, [title, selectedTags, notes]);
@@ -125,7 +124,6 @@ export function NoteList({
           </Col>
         ))}
       </Row>
-      {/* <Test /> */}
       <EditTagsModal
         show={editTagsModalIsOpen}
         handleClose={() => setEditTagsModalIsOpen(false)}
